@@ -1,0 +1,408 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+/** Ionic CSS Variables **/
+:root {
+
+ 
+  /* Text color */
+  --ion-color-text: #777;
+
+  /* Heading Color */
+  --ion-color-heading: #1d2127;
+  /* color white */
+  --ion-color-white: #fff;
+
+  /* color yellow */
+  --ion-color-yellow: #fedf30 ;
+
+  /* red color */
+  --ion-color-red: #f70200;
+
+  /* sky color */
+  --ion-color-sky: #56b9e0;
+  --ion-color-fade-sky: #f4f4f4;
+
+  /* blue color */
+  --ion-color-blue: #0099e6;
+  // --ion-color-blue: #304584;
+
+  /* black color */
+  --ion-color-black: #505050;
+
+  /* gray color */
+  --ion-color-gray: #e6e6e6;
+
+  /* lightgray color */
+  --ion-color-lightgray: #e3e3e36e;
+
+  /* lightgraythism color */
+  --ion-color-lightgraythin: #e3e3e347;
+
+  /* Color Green */
+  --ion-color-green: #009540;
+
+  /* Color Orange */
+  --ion-color-orange: #ff7f30;
+
+  /* Color Denim */
+  --ion-color-denim: #0f6799;
+
+  /* Button color green */
+  --ion-color-light-greent: #57c74ffa;
+
+  /* fade gray color */
+  --ion-color-fadegray: #555555;
+
+
+
+  /** primary **/
+  --ion-color-primary: #3880ff;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-light: #96cbfd; 
+
+  /** secondary **/
+  --ion-color-secondary: #0cd1e8;
+  --ion-color-secondary-rgb: 12, 209, 232;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #0bb8cc;
+  --ion-color-secondary-tint: #24d6ea;
+
+  /** tertiary **/
+  --ion-color-tertiary: #7044ff;
+  --ion-color-tertiary-rgb: 112, 68, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #633ce0;
+  --ion-color-tertiary-tint: #7e57ff;
+
+  /** success **/
+  --ion-color-success: #10dc60;
+  --ion-color-success-rgb: 16, 220, 96;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #0ec254;
+  --ion-color-success-tint: #28e070;
+  --ion-color-success-light: #d9ffcc;
+
+  /** warning **/
+  --ion-color-warning: #ffce00;
+  --ion-color-warning-rgb: 255, 206, 0;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast-rgb: 255, 255, 255;
+  --ion-color-warning-shade: #e0b500;
+  --ion-color-warning-tint: #ffd31a;
+
+  /** danger **/
+  --ion-color-danger: #f04141;
+  --ion-color-danger-rgb: 245, 61, 61;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d33939;
+  --ion-color-danger-tint: #f25454;
+  --ion-color-danger-thin: #ff6c60;
+
+  /** dark **/
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 34, 34;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+
+  /** medium **/
+  --ion-color-medium: #989aa2;
+  --ion-color-medium-rgb: 152, 154, 162;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #86888f;
+  --ion-color-medium-tint: #a2a4ab;
+
+  /** light **/
+  --ion-color-light: #f4f5f8;
+  --ion-color-light-rgb: 244, 244, 244;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+
+  
+  // ============================my custom color==========================
+  /** lightBlue **/
+  .ion-color-lightBlue {
+    --ion-color-base:  #5b6e84;
+    --ion-color-contrast: #ffffff;
+  }
+  /** skyBlue **/
+  .ion-color-skyBlue {
+    --ion-color-base:  #e0f4fd;
+    --ion-color-contrast: #555555;
+  }
+  /** menu gray **/
+  .ion-color-gray {
+    --ion-color-base:  #2a3542;
+    --ion-color-contrast: #aeb2b7;
+  }
+  .white {
+    color: #ffffff;
+  }
+
+  /** lighter **/
+  --ion-color-lighter: #666666;
+  --ion-color-lighter-rgb: 102, 102, 102;
+  --ion-color-lighter-contrast: #ffffff;
+  --ion-color-lighter-contrast-rgb: 255,255,255;
+  --ion-color-lighter-shade: #333333;
+  --ion-color-lighter-tint: #f2f3f8;
+  --ion-color-lighter-thin: #4444;
+
+  /** Ebony Clay **/
+  --ion-color-ebonyclay: #2a3542;
+  --ion-color-ebonyclay-rgb: 42, 53, 66;
+  --ion-color-ebonyclay-contrast: #ffffff;
+  --ion-color-ebonyclay-contrast-rgb: 255,255,255;
+  --ion-color-ebonyclay-shade: #35404d;
+  --ion-color-ebonyclay-tint: #3c4b5d;
+
+  /** Foam **/
+  --ion-color-foam: #e0f4fd;
+  --ion-color-foam-rgb: 224, 244, 253;
+  --ion-color-foam-contrast: #ffffff;
+  --ion-color-foam-contrast-rgb: 255,255,255;
+  --ion-color-foam-shade: #9fdcf9;
+  --ion-color-foam-tint: #e7f6fd;
+
+  /** Puerto Rico **/
+  --ion-color-puertorico: #41cac0;
+  --ion-color-puertorico-rgb: 65, 202, 192;
+  --ion-color-puertorico-contrast: #ffffff;
+  --ion-color-puertorico-contrast-rgb: 255,255,255;
+  --ion-color-puertorico-shade: #32b3aa;
+  --ion-color-puertorico-tint: #74d8d1;
+
+  /** DeepSkyBlue **/
+  --ion-color-deepskyblue: #57c0de;
+  --ion-color-deepskyblue-rgb: 87, 192, 222;
+  --ion-color-deepskyblue-contrast: #ffffff;
+  --ion-color-deepskyblue-contrast-rgb: 255,255,255;
+  --ion-color-deepskyblue-shade: #3fb8d9;
+  --ion-color-deepskyblue-tint: #e0f4fd;
+  // ============================my custom font size ==========================
+  .disabled-only-pointer
+  {
+    pointer-events: none !important;
+  }
+  .disabled
+  {
+    opacity: 0.4 !important;
+    pointer-events: none !important;
+  }
+  .disabled ion-button{
+    pointer-events: none !important;
+  }
+  .text-decoration-none, .text-decoration-none a
+  {
+    text-decoration: none !important;
+    outline: none !important;
+  }
+  .postion-relative
+  {
+    position: relative;
+  }
+  .display-none
+  {
+    display: none;
+  }
+  .display-block
+  {
+    display: block;
+  }
+  .cursor-pointer
+  {
+    cursor: pointer;
+  }
+  .success
+  {
+    color: var( --ion-color-success)!important;
+  }
+  .danger
+  {
+    color: var( --ion-color-danger) !important;
+  }
+  .warning
+  {
+    color: var( --ion-color-warning) !important;
+  }
+ // ============================ font size ==========================
+  .full-width
+  {
+    width:100%;
+  }
+  .font-bold {
+    font-weight: bold;
+  }
+  .font-size-10 {
+    font-size:  10px;
+  }
+  .font-size-11 {
+    font-size:  11px !important;
+  }
+  .font-size-12 
+  {
+    font-size:  12px;
+  }
+  .font-size-13 
+  {
+    font-size:  13px;
+  }
+  .font-size-14 
+  {
+    font-size:  14px;
+  }
+  .font-size-16
+  {
+    font-size:  16px;
+  }
+  .font-size-18 {
+    font-size:  18px;
+  }
+  .font-size-20 {
+    font-size:  20px;
+  }
+  .font-size-25 {
+    font-size:  25px;
+  }
+  .font-size-28 {
+    font-size:  28px;
+  }
+  .font-size-30 {
+    font-size:  30px;
+  }
+  .font-size-32 {
+    font-size:  32px;
+  }
+  // ========================= My Custom Margin =========================
+  .pull-right {
+    float: right;
+  }
+  .pull-left {
+    float: left;
+  } 
+  .nomargin {
+    margin: 0;
+  }
+  .nopadding {
+    padding: 0;
+  }
+  .margin-right-10 {
+    margin-right: 10px;
+  }
+  .margin-top-1 {
+  margin-top: 1px;
+  }
+  .margin-top-3 {
+    margin-top: 3px;
+  }
+  .margin-top-8 {
+    margin-top: 8px;
+  }
+  .margin-top-10 {
+    margin-top: 10px;
+  }
+  .margin-top-14 {
+    margin-top: 14px;
+  }
+  .margin-top-20{
+    margin-top: 20px;
+  }
+  .margin-bottom-5 {
+    margin-bottom: 5px!important;
+  }
+  .margin-bottom-10 {
+    margin-bottom: 10px!important;
+  }
+  .margin-right-5 {
+    margin-right: 5px!important;
+  }
+  .text-center {
+    text-align:  center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .display-inline-block {
+    display: inline-block;
+  }
+  .line-height-16 {
+    line-height: 16px;
+  }
+  .padding-left-0 {
+    padding-left: 0;
+  }
+  .padding-left-3 {
+    padding-left: 3px;
+  }
+  .padding-top-15 {
+    padding-top: 15px;
+  }
+  .padding-5 {
+    padding: 5px;
+  }
+  .padding-left-right-5 {
+    padding: 0 5px;
+  }
+  .padding-10 {
+    padding: 10px;
+  }
+  .width-100 {
+    width: 100%;
+  }
+  .width-50 {
+    width: 50%;
+  }
+  .width-250 {
+    width: 250px;;
+  }
+  .vertical-middle {
+    vertical-align: middle;
+  }
+  .hide-xs{
+    display: none;
+  }
+  .hide-sm{
+    display: none;
+  }
+  .hide-md{
+    display: none;
+  }
+  .hide-lg{
+    display: none;
+  }
+  .hide-xl{
+    display: none;
+  }
+  .show-xs{
+    display: block;
+  }
+  .show-sm{
+    display: block;
+  }
+  .show-md{
+    display: block;
+  }
+  .show-lg{
+    display: block;
+  }
+  .show-xl{
+    display: block;
+  }
+
+}

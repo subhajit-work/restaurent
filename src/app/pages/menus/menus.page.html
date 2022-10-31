@@ -1,0 +1,334 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+	<common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+	
+	<!-- Page header start -->
+	<section id="page-header">
+		<div class="page-header">
+			<div class="banner">
+				<img class="main-banner-img"  src="assets/images/page-header.jpg" alt="page-header">
+				<div class="banner-caption-wrapper">
+					<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12 slider-text animated fadeInUp">
+						<div class="slider-text-inner">
+							<div class="desc">
+								<span class="icon">
+									<img src="assets/images/restaurant.png">
+								</span>
+								<h1>Our Menu</h1>
+								
+								<div class="desc2"></div>
+							</div>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page header end -->
+	
+	<!-- place wise menu start -->
+	<section id="place-wise-menu">
+		<div class="place-wise-menu section-wrapper">
+			<div class="container">
+				<div class="heading">
+					<h2 class="section-title">
+					<div class="timetable-decorator"></div>
+					<div class="opening-hours">Types of Food Menu</div>
+					<div class="timetable-decorator2"></div>
+					</h2>
+				</div>
+				<mat-tab-group mat-align-tabs="center" dynamicHeight animationDuration="2000ms">
+					<mat-tab *ngFor="let menuItem of viewData?.menu">
+						<ng-template mat-tab-label>
+							<div class="tab-header">
+								<div class="header-img">
+									<img src="{{file_url}}/{{menuItem?.path}}{{menuItem?.image}}">
+								</div>
+								<div class="heder-content">
+									<p>{{menuItem?.menu_name}}</p>
+								</div>
+							</div>
+						</ng-template>
+						<div class="mat-elevation-z4">
+							<div class="row">
+								<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngFor="let itemMenu of menuItem?.menulist">
+									<div class="single_food_item" [ngClass]="{'out-of-stock': itemMenu?.availity == 'No' }">
+										<img src="{{file_url}}/{{itemMenu?.path}}{{itemMenu?.image}}" class="mr-3" alt="...">
+										<div class="star-review">
+										<span class="inner">
+											<span *ngIf="!itemMenu?.rating">0</span>
+											<span *ngIf="itemMenu?.rating">{{itemMenu?.rating}}</span>
+										</span>
+										</div>
+										<div class="media-body">
+											<h3>{{itemMenu?.submenu_name}}</h3>
+											<p>{{itemMenu?.description}}</p>
+
+											<div class="price-part">
+												<h5>₹{{itemMenu?.final_dis_price}}</h5>
+												<button mat-icon-button color="warn" *ngIf="itemMenu?.cart_quantity == '0'" (click)="onChangeCart(itemMenu?.uniqcode, 'increment', itemMenu?.cart_quantity,'Special')">
+												  <mat-icon>add_shopping_cart</mat-icon>
+												</button> 
+												<ion-chip *ngIf="itemMenu?.cart_quantity > '0'">
+												  <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(itemMenu?.uniqcode, 'decrement', itemMenu?.cart_quantity,'Special')"> </ion-icon>
+												  <ion-label>{{itemMenu?.cart_quantity}}</ion-label>
+												  <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(itemMenu?.uniqcode, 'increment', itemMenu?.cart_quantity,'Special')"> </ion-icon>
+												</ion-chip>
+											  </div>
+											
+										</div>
+                  </div>
+                </div>
+                <div class="col-lg-12" [ngClass]="{'ion-hide': menuItem?.menulist}">
+                  <div class="no-food">
+                    <img src="assets/images/breakfast.png">
+                    <p>No food available in this menu</p>
+                  </div>
+                </div>
+							</div>
+						</div>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+		</div>
+	</section>
+	<!-- place wise menu end -->
+
+	<!-- Our menus start -->
+	<section id="our-menus">
+		<div class="our-menus section-wrapper">
+			<div class="container">
+				<div class="heading">
+				<h2 class="section-title">
+					<div class="timetable-decorator"></div>
+					<div class="opening-hours">Delicious Food Menu</div>
+					<div class="timetable-decorator2"></div>
+				</h2>
+				</div>
+				<mat-tab-group dynamicHeight animationDuration="2000ms" mat-align-tabs="center">
+          <mat-tab>
+            <ng-template mat-tab-label >
+              <div class="tab-label" (click)="onChangeMenu('Special')">Special</div>
+            </ng-template>
+            <div class="mat-elevation-z4">
+              <div class="row">
+                <div class="col-lg-12" *ngIf="!menuList">
+                  <div class="no-food">
+                    <img src="assets/images/breakfast.png">
+                    <p>No food available in this menu</p>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngFor="let menu of menuList">
+                  <div class="single_food_item" *ngIf="menu?.session_menu == 'Special'" [ngClass]="{'out-of-stock': menu?.availity == 'No' }">
+                    <img src="{{file_url}}/{{menu?.path}}{{menu?.image}}" class="mr-3" alt="...">
+                    <div class="star-review">
+                      <span class="inner">
+                        <span *ngIf="!menu?.rating">0</span>
+                        <span *ngIf="menu?.rating">{{menu?.rating}}</span>
+                      </span>
+                    </div>
+                    <div class="media-body">
+                      <h3>{{menu?.submenu_name}}</h3>
+                      <p>{{menu?.description}}</p>
+                      
+                      <div class="price-part">
+                        <h5>₹{{menu?.final_dis_price}}</h5>
+                        <button mat-icon-button color="warn" *ngIf="menu?.cart_quantity == '0'" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Special')">
+                          <mat-icon>add_shopping_cart</mat-icon>
+                        </button> 
+                        <ion-chip *ngIf="menu?.cart_quantity > '0'">
+                          <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(menu?.uniqcode, 'decrement', menu?.cart_quantity,'Special')"> </ion-icon>
+                          <ion-label>{{menu?.cart_quantity}}</ion-label>
+                          <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Special')"> </ion-icon>
+                        </ion-chip>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+            <div class="tab-label" (click)="onChangeMenu('Breakfast')">Breakfast</div>
+            </ng-template>
+            <div class="mat-elevation-z4">
+            <div class="row">
+              <div class="col-lg-12" *ngIf="!menuList">
+              <div class="no-food">
+                <img src="assets/images/breakfast.png">
+                <p>No food available in this menu</p>
+              </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngFor="let menu of menuList">
+              <div class="single_food_item" *ngIf="menu?.session_menu == 'Breakfast'" [ngClass]="{'out-of-stock': menu?.availity == 'No' }">
+                <img src="{{file_url}}/{{menu?.path}}{{menu?.image}}" class="mr-3" alt="...">
+                <div class="star-review">
+                  <span class="inner">
+                    <span *ngIf="!menu?.rating">0</span>
+                    <span *ngIf="menu?.rating">{{menu?.rating}}</span>
+                  </span>
+                </div>
+                <div class="media-body">
+                  <h3>{{menu?.submenu_name}}</h3>
+                  <p>{{menu?.description}}</p>
+                  <div class="price-part">
+                    <h5>₹{{menu?.final_dis_price}}</h5>
+                    <button mat-icon-button color="warn" *ngIf="menu?.cart_quantity == '0'" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Breakfast')">
+                      <mat-icon>add_shopping_cart</mat-icon>
+                    </button> 
+                    <ion-chip *ngIf="menu?.cart_quantity > '0'">
+                      <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(menu?.uniqcode, 'decrement', menu?.cart_quantity,'Breakfast')"> </ion-icon>
+                      <ion-label>{{menu?.cart_quantity}}</ion-label>
+                      <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Breakfast')"> </ion-icon>
+                    </ion-chip>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+            <div class="tab-label" (click)="onChangeMenu('Lunch')">Lunch</div>
+            </ng-template>
+            <div class="mat-elevation-z4">
+            <div class="row">
+              <div class="col-lg-12" *ngIf="!menuList">
+              <div class="no-food">
+                <img src="assets/images/breakfast.png">
+                <p>No food available in this menu</p>
+              </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngFor="let menu of menuList">
+              <div class="single_food_item" *ngIf="menu?.session_menu == 'Lunch'" [ngClass]="{'out-of-stock': menu?.availity == 'No' }">
+                <img src="{{file_url}}/{{menu?.path}}{{menu?.image}}" class="mr-3" alt="...">
+                <div class="star-review">
+                  <span class="inner">
+                    <span *ngIf="!menu?.rating">0</span>
+                    <span *ngIf="menu?.rating">{{menu?.rating}}</span>
+                  </span>
+                </div>
+                <div class="media-body">
+                  <h3>{{menu?.submenu_name}}</h3>
+                  <p>{{menu?.description}}</p>
+                  
+                  <div class="price-part">
+                    <h5>₹{{menu?.final_dis_price}}</h5>
+                    <button mat-icon-button color="warn" *ngIf="menu?.cart_quantity == '0'" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Lunch')">
+                      <mat-icon>add_shopping_cart</mat-icon>
+                    </button> 
+                    <ion-chip *ngIf="menu?.cart_quantity > '0'">
+                      <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(menu?.uniqcode, 'decrement', menu?.cart_quantity,'Lunch')"> </ion-icon>
+                      <ion-label>{{menu?.cart_quantity}}</ion-label>
+                      <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Lunch')"> </ion-icon>
+                    </ion-chip>
+                  </div>
+                  
+                </div>
+              </div>
+              </div>
+            </div>
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+            <div class="tab-label" (click)="onChangeMenu('Dinner')">Dinner</div>
+            </ng-template>
+            <div class="mat-elevation-z4">
+            <div class="row">
+              <div class="col-lg-12" *ngIf="!menuList">
+              <div class="no-food">
+                <img src="assets/images/breakfast.png">
+                <p>No food available in this menu</p>
+              </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngFor="let menu of menuList">
+              <div class="single_food_item" *ngIf="menu?.session_menu == 'Dinner'" [ngClass]="{'out-of-stock': menu?.availity == 'No' }">
+                <img src="{{file_url}}/{{menu?.path}}{{menu?.image}}" class="mr-3" alt="...">
+                <div class="star-review">
+                  <span class="inner">
+                    <span *ngIf="!menu?.rating">0</span>
+                    <span *ngIf="menu?.rating">{{menu?.rating}}</span>
+                  </span>
+                </div>
+                <div class="media-body">
+                  <h3>{{menu?.submenu_name}}</h3>
+                  <p>{{menu?.description}}</p>
+                  
+                  <div class="price-part">
+                    <h5>₹{{menu?.final_dis_price}}</h5>
+                    <button mat-icon-button color="warn" *ngIf="menu?.cart_quantity == '0'" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Dinner')">
+                      <mat-icon>add_shopping_cart</mat-icon>
+                    </button> 
+                    <ion-chip *ngIf="menu?.cart_quantity > '0'">
+                      <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(menu?.uniqcode, 'decrement', menu?.cart_quantity,'Dinner')"> </ion-icon>
+                      <ion-label>{{menu?.cart_quantity}}</ion-label>
+                      <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Dinner')"> </ion-icon>
+                    </ion-chip>
+                  </div>
+                  
+                </div>
+              </div>
+              </div>
+            </div>
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+            <div class="tab-label" (click)="onChangeMenu('Snacks')">Snacks</div>
+            </ng-template>
+            <div class="mat-elevation-z4">
+            <div class="row">
+              <div class="col-lg-12" *ngIf="!menuList">
+              <div class="no-food">
+                <img src="assets/images/breakfast.png">
+                <p>No food available in this menu</p>
+              </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngFor="let menu of menuList">
+              <div class="single_food_item" *ngIf="menu?.session_menu == 'Snacks'" [ngClass]="{'out-of-stock': menu?.availity == 'No' }">
+                <img src="{{file_url}}/{{menu?.path}}{{menu?.image}}" class="mr-3" alt="...">
+                <div class="star-review">
+                  <span class="inner">
+                    <span *ngIf="!menu?.rating">0</span>
+                    <span *ngIf="menu?.rating">{{menu?.rating}}</span>
+                  </span>
+                </div>
+                <div class="media-body">
+                  <h3>{{menu?.submenu_name}}</h3>
+                  <p>{{menu?.description}}</p>
+                  
+                  <div class="price-part">
+                    <h5>₹{{menu?.final_dis_price}}</h5>
+                    <button mat-icon-button color="warn" *ngIf="menu?.cart_quantity == '0'" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Snacks')">
+                      <mat-icon>add_shopping_cart</mat-icon>
+                    </button> 
+                    <ion-chip *ngIf="menu?.cart_quantity > '0'">
+                      <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(menu?.uniqcode, 'decrement', menu?.cart_quantity,'Snacks')"> </ion-icon>
+                      <ion-label>{{menu?.cart_quantity}}</ion-label>
+                      <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(menu?.uniqcode, 'increment', menu?.cart_quantity,'Snacks')"> </ion-icon>
+                    </ion-chip>
+                  </div>
+                  
+                </div>
+              </div>
+              </div>
+            </div>
+            </div>
+          </mat-tab>
+				</mat-tab-group>
+			</div>
+		</div>
+	</section>
+	<!-- Our menus end -->
+
+	<!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

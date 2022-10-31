@@ -1,0 +1,152 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  
+  <!-- Page header start -->
+	<section id="page-header">
+		<div class="page-header">
+			<div class="banner">
+				<img class="main-banner-img"  src="assets/images/page-header.jpg" alt="page-header">
+				<div class="banner-caption-wrapper">
+					<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12 slider-text animated fadeInUp">
+						<div class="slider-text-inner">
+							<div class="desc">
+								<span class="icon">
+									<img src="assets/images/restaurant.png">
+								</span>
+								<h1>Book your reservation</h1>
+								
+								<div class="desc2"></div>
+							</div>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  <!-- Page header end -->
+
+  <!-- book a table section start -->
+  <section id="book-table">
+    <div class="book-table section-wrapper">
+      <div class="container">
+        <div class="heading">
+          <h2 class="section-title">
+            <div class="timetable-decorator"></div>
+            <div class="opening-hours">Make A Reservation</div>
+            <div class="timetable-decorator2"></div>
+          </h2>
+        </div>
+        <div class="booking-form">
+          <form  #tableBookingForm="ngForm" (ngSubmit)="onSubmit(tableBookingForm)">
+            <div class="row">
+              <!-- Name -->
+              <div class="col-md-6">
+                <div class="form-item">
+                  <ion-label position="floating">Name <sup>*</sup></ion-label>
+                  <ion-input name="name" [(ngModel)]="model.name" clearInput required></ion-input>
+                </div>
+              </div>
+
+              <!-- Mobile -->
+              <div class="col-md-6">
+                <div class="form-item">
+                  <ion-label position="floating">Mobile <sup>*</sup> </ion-label>
+                  <ion-input OnlyNumber="true" type="tel" minlength="10" maxlength="10" name="phone" [(ngModel)]="model.phone"
+                  clearInput required></ion-input>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6">
+                <div class="form-item">
+                  <ion-label position="floating">Email Id <sup>*</sup></ion-label>
+                  <ion-input type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" clearInput  required></ion-input>
+                </div>
+              </div>
+
+              <!-- Select Date -->
+              <div class="col-md-6">
+                <div class="form-item">
+                    <ion-label position="floating">Select Date <sup>*</sup></ion-label>
+                    <li-ionic4-datepicker 
+                        name="booking_date" 
+                        required
+                        [(ngModel)]="model.booking_date"
+                        [inputDateConfig]="datePickerObj" 
+                        (ngModelChange)="onChangeDateTime(model.booking_date)"
+                    ></li-ionic4-datepicker>
+                </div>
+              </div>
+
+              <!-- Choose time slot -->
+              <div class="col-md-6">
+                <div class="form-item">
+                    <ion-label position="floating">Choose Time Slot <sup>*</sup></ion-label>
+                    <ng-select #timeSlotSerch
+                        [loading]="selectLoading"
+                        [dropdownPosition]="'bottom'"
+                        placeholder="Please Select Time Slot"
+                        [items]="timeSlotList"
+                        bindLabel="timeslot"
+                        bindValue="uniqcode"
+                        [searchable]="false"
+                        name="timeslot" 
+                        [(ngModel)]="model.timeslot"
+                        required
+                        >
+                        <ng-template ng-header-tmp>
+                            <input placeholder="Search" class="dropdown-custom-search" type="text" (input)="timeSlotSerch.filter($event.target.value)" [autofocus]="true" />
+                            
+                        </ng-template>
+                    </ng-select>
+                </div>
+              </div>
+
+              <!-- No of People -->
+              <div class="col-md-6">
+                <div class="form-item">
+                  <ion-label position="floating">No of People <sup>*</sup> </ion-label>
+                  <ion-input OnlyNumber="true" type="tel" minlength="1" maxlength="2" name="person" [(ngModel)]="model.person"
+                  clearInput required></ion-input>
+                </div>
+              </div>
+
+              
+
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+                <!-- <ion-checkbox color="primary" required></ion-checkbox> -->
+                <div class="termsChecking">
+                  <label>
+                    <input type="checkbox" name="acceptTerms" id="acceptTerms" class="form-check-input" [(ngModel)]="model.acceptTerms" #acceptTerms="ngModel" required (change)="onCheckBooking(tableBookingForm)">
+
+                    <span class="ion-padding-start">I’ve read and accept the <a class="terms-condtion-text" href="javascript:void(0);" >Terms & Conditions</a></span>
+                  </label>
+                </div>
+                
+              </div>
+              <div class="col-md-12 custom-btn">
+                <ion-button expand="block" class="submit" size="default"
+                type="submit"  
+                tooltip="Submit" flow="up" [disabled]="!tableBookingForm.valid" >
+                  <ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+                  <span class="submitText">{{form_submit_text}}</span>
+                </ion-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- book a table section end -->
+
+  <!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

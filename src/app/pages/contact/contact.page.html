@@ -1,0 +1,181 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  
+  <!-- Page header start -->
+	<section id="page-header">
+		<div class="page-header">
+			<div class="banner">
+				<img class="main-banner-img"  src="assets/images/page-header.jpg" alt="page-header">
+				<div class="banner-caption-wrapper">
+					<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12 slider-text animated fadeInUp">
+						<div class="slider-text-inner">
+							<div class="desc">
+								<span class="icon">
+									<img src="assets/images/restaurant.png">
+								</span>
+								<h1>Contact Us</h1>
+								
+								<div class="desc2"></div>
+							</div>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  <!-- Page header end -->
+
+  <!-- Contact us form start -->
+  <section id="contact-us">
+    <div class="contact-us section-wrapper">
+      <div class="container">
+        <div class="heading">
+					<h2 class="section-title">
+					<div class="timetable-decorator"></div>
+					<div class="opening-hours">Get in Touch</div>
+					<div class="timetable-decorator2"></div>
+					</h2>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6" [ngClass]="{'disabled': form_submit_text == 'Submitting'}">
+            <form  #acontactusAddForm="ngForm" (ngSubmit)="onSubmit(acontactusAddForm)" class="student-register-inner">
+              <h4>Send a massage</h4>
+              
+              
+              <div class="row ion-padding">
+                <div class="col-xs-12 col-sm-10 col-lg-12">
+                  <div class="assessment-inner">
+                    <div class="row">
+                      <!-- name -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Name : <sup>*</sup> </ion-label> -->
+                          <ion-input placeholder="Name*" name="name" [(ngModel)]="model.name" clearInput required></ion-input>
+                        </div>
+                      </div>
+                      <!-- email -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Email : <sup>*</sup> </ion-label> -->
+                          <ion-input placeholder="Email*" type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" clearInput email required></ion-input>
+                        </div>
+                      </div>
+                      <!-- Mobile -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Mobile <sup>*</sup> </ion-label> -->
+                          <ion-input placeholder="Mobile*" OnlyNumber="true" type="tel" minlength="10"maxlength="10" name="phone" [(ngModel)]="model.phone" clearInput required></ion-input>
+                        </div>
+                      </div>
+                      <!-- Message -->
+                      <div class="col-xs-12 col-sm-12">
+                        <div>
+                          <!-- <ion-label position="floating">Message : </ion-label> -->
+                          <ion-textarea placeholder="Message" auto-grow="true" name="message" [(ngModel)]="model.message" clearInput></ion-textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="submit-button-wrapper">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ion-text-center">
+                    <div class="custom-btn">
+                      <!-- <ion-button class="reload clear-form" size="default" fill="clear" tooltip="Clear" flow="up" (click)="reloadPageAlert()">
+                        
+                        Clear
+                      </ion-button> -->
+  
+                      <ion-button class="submit" size="default"
+                      type="submit" 
+                      [disabled]="!acontactusAddForm.valid"
+                      tooltip="Submit" flow="up">
+                      <ion-spinner name="crescent" *ngIf="form_submit_text == 'Submitting'"></ion-spinner> 
+                      <span class="submitText">{{form_submit_text}}</span>
+                      </ion-button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Contact Info -->
+          <div class="col-xs-12 col-sm-6" *ngIf="!editLoading">
+            <div class="detailspage-right-item contact-info">
+              <h4>Customer Support</h4>
+              <div class="job-list-inner">
+                <ul>
+                  <li>
+                    <div class="contact-info-item" >
+                      <p class="email" *ngIf="commonPageData?.contact_us?.email">
+                        <span>
+                          <ion-icon name="mail"></ion-icon>
+                          </span>
+                        <a href="mailto:{{commonPageData?.contact_us?.email}}">{{commonPageData?.contact_us?.email}}</a>
+                        <i *ngIf="commonPageData?.contact_us?.alt_email">&nbsp; / &nbsp;</i>
+                        <a href="mailto:{{commonPageData?.contact_us?.alt_email}}">{{commonPageData?.contact_us?.alt_email}}</a>
+                      </p>
+                      
+                      <p class="email" *ngIf="commonPageData?.contact_us?.phone">
+                        <span>
+                          <ion-icon name="call"></ion-icon>
+                        </span>
+                        <a href="tel:{{commonPageData?.contact_us?.phone}}">{{commonPageData?.contact_us?.phone}}</a>
+                        <i *ngIf="commonPageData?.contact_us?.alt_phone">&nbsp; / &nbsp;</i>
+                        <a href="tel:{{commonPageData?.contact_us?.alt_phone}}">{{commonPageData?.contact_us?.alt_phone}}</a>
+                      </p>
+  
+                      <p class="email">
+                        <span>
+                          <ion-icon name="pin"></ion-icon>
+                        </span>
+                        <a class="new-address">Address</a>
+                      </p>
+  
+                      <p class="address-inner">
+                        {{commonPageData?.contact_us?.address}}
+                      </p>
+  
+                      
+                      
+                      <!-- <p class="email" *ngIf="commonPageData?.contact_us?.alt_phone"><span>Alt Phone </span> <b>:</b> 
+                        <a href="tel:{{commonPageData?.contact_us?.alt_phone}}">{{commonPageData?.contact_us?.alt_phone}}</a>
+                      </p> -->
+                      
+                      <!-- <p class="email" *ngIf="commonPageData?.contact_us?.alt_email"><span>Alt Email </span> <b>:</b> 
+                        <a href="mailto:{{commonPageData?.contact_us?.alt_email}}">{{commonPageData?.contact_us?.alt_email}}</a>
+                      </p> -->
+                    </div>
+                  </li>
+                </ul>
+              </div>
+  
+              <h4>Stay Connected</h4>
+              <div class="job-list-inner">
+                <span class="social-sites" *ngFor="let socialItem of commonPageData?.sitedetails?.social_link">
+                  <a target="blank" href="{{socialItem?.media_link}}" class="{{socialItem?.media_name}}">
+                    <i class="fa fa-{{socialItem?.media_name}}" aria-hidden="true"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+            
+      </div>
+    </div>
+  </section>
+  <!-- Contact us form end -->
+
+
+  <!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

@@ -1,0 +1,58 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  
+  <!-- Page header start -->
+	<section id="page-header">
+		<div class="page-header">
+			<div class="banner">
+				<img class="main-banner-img"  src="assets/images/page-header.jpg" alt="page-header">
+				<div class="banner-caption-wrapper">
+					<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12 slider-text animated fadeInUp">
+						<div class="slider-text-inner">
+							<div class="desc">
+								<span class="icon">
+									<img src="assets/images/restaurant.png">
+								</span>
+								<h1>{{viewData?.module_display_name}}</h1>
+								
+								<div class="desc2"></div>
+							</div>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  <!-- Page header end -->
+  
+  <!-- Our history section start -->
+  <section id="our-history">
+    <div class="our-history section-wrapper">
+      <div class="container">
+        <div class="heading">
+					<h2 class="section-title">
+					<div class="timetable-decorator"></div>
+					<div class="opening-hours">{{viewData?.module_display_name}}</div>
+					<div class="timetable-decorator2"></div>
+					</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <p [innerHTML]="viewData?.description | safeHtml"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Our history section end -->
+
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>
+

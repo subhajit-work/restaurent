@@ -1,0 +1,74 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+
+  <!-- search start -->
+  <section id="search-section">
+    <div class="search-section section-wrapper">
+      <div class="container">
+        <div class="heading">
+					<h2 class="section-title">
+					<div class="timetable-decorator"></div>
+					<div class="opening-hours">Search your favorite menus</div>
+					<div class="timetable-decorator2"></div>
+					</h2>
+        </div>
+        <ion-searchbar placeholder="Search for your favorite dishes" animated [(ngModel)]="searchTerm" (ionChange)="searchList($event)"></ion-searchbar>
+
+        <div class="search-item-show section-wrapper">
+          <div class="row"  *ngIf="!searchTerm">
+            <div class="col-lg-12">
+              <div class="no-food">
+                <p style="color: #fff;">Search your favorite menu.</p>
+                <img src="assets/images/breakfast.png">
+                
+              </div>
+            </div>
+          </div>
+          <div class="row"  *ngIf='searchItems?.return_status == "0"'>
+            <div class="no-food">
+              <p style="color: #fff;">{{searchItems?.return_message}}</p>
+              <img src="assets/images/serving-dish.png">
+              
+            </div>
+          </div>
+          <div class="row" *ngIf="searchTerm">
+            <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngFor="let searchItem of searchItems?.return_data">
+              
+              <div class="single_food_item" [ngClass]="{'out-of-stock': searchItem?.availity == 'No' }">
+                <img src="{{file_url}}/{{searchItem?.path}}{{searchItem?.image}}" class="mr-3" alt="...">
+                <div class="star-review">
+                  <span class="inner">
+                    <span *ngIf="!searchItem?.rating">0</span>
+                    <span *ngIf="searchItem?.rating">{{searchItem?.rating}}</span> 
+                  </span>
+                </div>
+                <div class="media-body">
+                  <h3>{{searchItem?.submenu_name}}</h3>
+                  <p>{{searchItem?.description}}</p>
+                  
+                  <div class="price-part">
+                    <h5>₹{{searchItem?.final_dis_price}}</h5>
+                    <button mat-icon-button color="warn" *ngIf="searchItem?.cart_quantity == '0'" (click)="onChangeCart(searchItem?.uniqcode, 'increment', searchItem?.cart_quantity,'Special')">
+                      <mat-icon>add_shopping_cart</mat-icon>
+                    </button> 
+                    <ion-chip *ngIf="searchItem?.cart_quantity > '0'">
+                      <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(searchItem?.uniqcode, 'decrement', searchItem?.cart_quantity,'Special')"> </ion-icon>
+                      <ion-label>{{searchItem?.cart_quantity}}</ion-label>
+                      <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(searchItem?.uniqcode, 'increment', searchItem?.cart_quantity,'Special')"> </ion-icon>
+                    </ion-chip>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- search end -->
+
+  <!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

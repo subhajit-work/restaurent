@@ -1,0 +1,250 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+	<!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+  
+  <!-- Page header start -->
+	<section id="page-header">
+		<div class="page-header">
+			<div class="banner">
+				<img class="main-banner-img"  src="assets/images/page-header.jpg" alt="page-header">
+				<div class="banner-caption-wrapper">
+					<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12 slider-text animated fadeInUp">
+						<div class="slider-text-inner">
+							<div class="desc">
+								<span class="icon">
+									<img src="assets/images/restaurant.png">
+								</span>
+								<h1>Check Out</h1>
+								
+								<div class="desc2"></div>
+							</div>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  <!-- Page header end -->
+
+  <!-- Checkout section start -->
+  <section id="checkout">
+    <div class="checkout section-wrapper">
+      <div class="container">
+        <form  #orderInfoAddForm="ngForm" (ngSubmit)="onSubmit(orderInfoAddForm)" >
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="details-part">
+                <ion-card>
+                  <mat-vertical-stepper [linear]="isLinear" #stepper>
+                    <!-- Signin -->
+                    <mat-step label="Sign In" state="login">
+                      <ion-item class="login-item">
+                        <ion-avatar slot="start">
+                          <img src="{{file_url}}/{{homePageData?.userinfo?.path}}{{ homePageData?.userinfo?.image}}">
+                        </ion-avatar>
+                        <ion-label>
+                          <p class="h2">{{homePageData?.userinfo?.name}}</p>
+                          <p class="h3">{{homePageData?.userinfo?.email}}</p>
+                          <p>You are securely logged in</p>
+                        </ion-label>
+                      </ion-item>
+                      <div>
+                        <button type="button" mat-button matStepperNext>Next</button>
+                      </div>
+                    </mat-step>
+                    <!-- address -->
+                    <mat-step *ngIf="parms_action_id == 'order'" label="Delivery Address" state="address">
+                      <ion-list class="address-inner">
+                        <ion-list-header>
+                          Choose a delivery address
+                        </ion-list-header>
+                        <input type="hidden" name="deliveryUniqcode" [(ngModel)]="deliveryUniqcode" required>
+                        
+                        <div *ngFor="let addressItem of addressList">
+                          
+                          <ion-item class="address-item">
+                            <mat-icon *ngIf="addressItem?.address_type == 'Home'">house</mat-icon>
+                            <mat-icon *ngIf="addressItem?.address_type == 'Other'">home_work</mat-icon>
+                            <ion-label>
+                              <h2>{{addressItem?.address_type}}</h2>
+                              <p>
+                                <span *ngIf="addressItem?.flat_no">{{addressItem?.flat_no}}</span>
+                                <i *ngIf="addressItem?.address_details">, &nbsp;</i>
+                                <span *ngIf="addressItem?.address_details">{{addressItem?.address_details}}</span>
+                                <i *ngIf="addressItem?.city_dist_town">, &nbsp;</i>
+                                <span *ngIf="addressItem?.city_dist_town">{{addressItem?.city_dist_town}}</span>
+                                <i *ngIf="addressItem?.pin_code">&nbsp; - &nbsp;</i>
+                                <span *ngIf="addressItem?.pin_code">{{addressItem?.pin_code}}</span>
+                                <i *ngIf="addressItem?.state">, &nbsp;</i>
+                                <span *ngIf="addressItem?.state">{{addressItem?.state}}</span>.
+                              </p>
+                            </ion-label>
+                            <div class="custom-btn">
+                              <ion-button size="default" type="button" (click)="onChangeaddress('deliverd', addressItem)">
+                                <span class="submitText">Deliver here</span>
+                              </ion-button>
+
+                              <!-- Change -->
+                              <ion-button *ngIf="deliveryAddress == 'deliverd'" color="medium" class="start" size="default" type="button" (click)="onChangeaddress('change', addressItem)">
+                                <span class="submitText">Change</span>
+                              </ion-button>
+      
+                              <ion-button *ngIf="deliveryAddress == 'change'" color="tertiary" class="start" size="default" type="button" (click)="addMenuOrder('address_add', addressItem?.uniqcode, 'edit');">
+                                <span class="submitText">Edit</span>
+                              </ion-button>
+                            </div>
+                          </ion-item>
+                        </div>
+                        <ion-item class="addressAdd">
+                          <ion-button (click)="addMenuOrder('address_add', '', 'add');" color="success" class="start" size="default" type="button">
+                            <mat-icon>add_location_alt</mat-icon>
+                            <span class="submitText">Add New Address</span>
+                          </ion-button>
+                        </ion-item>
+                      </ion-list>
+                      <div>
+                        <button type="button" mat-button matStepperPrevious>Back</button>
+                        <button type="button" mat-button matStepperNext>Next</button>
+                      </div>
+                    </mat-step>
+                    <!-- Payment -->
+                    <mat-step label="Select Payment Mood" state="payment">
+                      <div class="radio-custom-outer">
+                        <div class="radio-custom-label"> 
+                            <label>
+                              <input type="radio" id="pay_by_online" value="pay_by_online" name="payment_type" [(ngModel)]="model.payment_type" checked="checked" (change)="onChangePaymentMode(model.payment_type)" required> 
+                              <div  class="btn btn-sık"><span>Payment by Online</span></div> 
+                            </label>
+                            <label *ngIf="parms_action_id == 'order'">
+                                <input  type="radio"  id="pay_on_cash" value="pay_on_cash" name="payment_type" [(ngModel)]="model.payment_type" (change)="onChangePaymentMode(model.payment_type)" required> 
+                              <div class="btn btn-sık"><span>Payment by Cash</span></div>
+                            </label>
+                        </div>
+                      </div>
+                    </mat-step>
+                  
+                    <!-- Icon overrides. -->
+                    <ng-template matStepperIcon="login">
+                      <mat-icon>perm_identity</mat-icon>
+                    </ng-template>
+                    <ng-template matStepperIcon="address">
+                      <mat-icon>location_on</mat-icon>
+                    </ng-template>
+                    <ng-template matStepperIcon="payment">
+                      <mat-icon>account_balance_wallet</mat-icon>
+                    </ng-template>
+                  </mat-vertical-stepper>
+                </ion-card>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="cart-part">
+                <ion-card>
+                  <ion-list class="cart-list">
+                    <input type="hidden" name="totalcart" [(ngModel)]="cartUniqcode" required>
+                    <ion-list-header>
+                      My Cart ( <span *ngIf="!viewData?.totalcart" style="display: inherit;">0</span>{{viewData?.totalcart}} items) 
+                      <ion-button tooltip="Add menu" flow="left" color="tertiary" expand="block" size="default" type="button" (click)="addMenuOrder('addMenu', 'orderItem', 'api/menulist');">
+                        <ion-spinner *ngIf="buttonLoader" name="crescent"></ion-spinner> 
+                        <span class="material-icons" style="margin-right: 5px;">fastfood</span>
+                        <span class="submitText">Add menu</span>
+                      </ion-button> 
+                    </ion-list-header>
+                    <ion-item *ngFor="let cartItem of viewData?.cart_details">
+                      <ion-avatar slot="start">
+                        <img src="{{file_url}}/{{cartItem?.submenu?.path}}{{ cartItem?.submenu?.image}}">
+                      </ion-avatar>
+                      <ion-label>
+                        <h2>{{cartItem?.submenu?.submenu_name}}</h2>
+                        <p>₹ {{cartItem?.submenu?.final_dis_price}}</p>
+                      </ion-label>
+                      <ion-label class="ion-text-end">
+                        <ion-chip *ngIf="cartItem?.quantity > '0'">
+                          <ion-icon class="minus-btn" name="remove-circle" (click)="onChangeCart(cartItem?.submenu?.uniqcode, 'decrement', cartItem?.quantity,'Special')"> </ion-icon>
+                          <ion-label>{{cartItem?.quantity}}</ion-label>
+                          <ion-icon class="plus-btn" name="add-circle" (click)="onChangeCart(cartItem?.submenu?.uniqcode, 'increment', cartItem?.quantity,'Special')"> </ion-icon>
+                        </ion-chip>
+                      </ion-label>
+                      <ion-label>
+                        <p class="ion-text-end">₹ {{cartItem?.price}}</p>
+                      </ion-label>
+                    </ion-item>
+                  </ion-list>
+
+                  <ion-list class="billing-list">
+                    <ion-list-header>
+                      Bill Details
+                    </ion-list-header>
+            
+                    <ion-item>
+                      <ion-label>
+                        <h2>Subtotal</h2>
+                      </ion-label>
+                      <ion-label>
+                        <h2 class="ion-text-end">₹ {{subTotal}}</h2>
+                      </ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>
+                        <p>Add GST</p>
+                      </ion-label>
+                      <ion-label>
+                        <p class="ion-text-end">₹ {{totalGst}}</p>
+                      </ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>
+                        <p>Restaurant Packaging Charges</p>
+                      </ion-label>
+                      <ion-label>
+                        <p class="ion-text-end">₹ 0</p>
+                      </ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>
+                        <p>Delivery partner fee</p>
+                      </ion-label>
+                      <ion-label>
+                        <p class="ion-text-end">₹ 0</p>
+                      </ion-label>
+                    </ion-item>
+                    <ion-item class="border-top">
+                      <ion-label>
+                        <h2 class="ion-text-uppercase font-bold">Grand Total</h2>
+                      </ion-label>
+                      <ion-label>
+                        <h2 class="ion-text-end ion-text-uppercase font-bold">₹ {{grandTotal}}</h2>
+                      </ion-label>
+                    </ion-item>
+                  </ion-list>
+
+                  <div class="custom-btn ion-text-center">
+                    <!-- <ion-button size="default" type="button" >
+                      <span class="submitText">PROCEED TO CHECKOUT</span>
+                    </ion-button> -->
+                    <ion-button size="default"
+                    type="submit" [disabled]="!orderInfoAddForm.valid" 
+                    tooltip="Submit" flow="up">
+                        <ion-spinner *ngIf="form_submit_text == 'Submitting'" name="crescent"></ion-spinner> 
+                        <span class="submitText">{{form_submit_text}}</span>
+                    </ion-button>
+                  </div>
+                </ion-card>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <!-- Checkout section End -->
+
+  <!-- common footer show -->
+	<common-footer></common-footer>
+</ion-content>

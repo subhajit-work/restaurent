@@ -1,0 +1,125 @@
+<ion-footer class="footer-wrapper">
+  <!-- <ion-toolbar color="lightBlue" text-center>
+    <ion-title class="font-size-12 text-decoration-none powered-by">
+      Powered By: <a class="padding-left-5 powered-by-text" href="https://rnjcs.in/?utm_source=bms&utm_medium=dugarinvestment" target="_blank">RNJ Consultancy Services</a>
+    </ion-title>
+  </ion-toolbar> -->
+  <div class="top-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3">
+          <h5>About Us</h5>
+          <p class="subscribtion-text">
+            {{footerPageData?.about?.short_description}}
+          </p>
+          
+          <div class="social-link">
+            <ul>
+              <li *ngFor="let socialItem of footerPageData?.sitedetails?.social_link">
+                <a href="{{socialItem?.media_link}}" target="blank" class="{{socialItem?.media_name}}">
+                  <i class="fa fa-{{socialItem?.media_name}}" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="footer-inMobile">
+            <h5>Other Pages</h5>
+            <ul>
+              <li class="footer-row" *ngFor="let item of footerPageData?.header?.menu">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                <span class="foter-txt" (click)="goToPage(item?.module_url, item?.module_name,'cms')">
+                  {{item?.module_display_name}}
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h5>Other Pages</h5>
+                </mat-panel-title>
+                <span class="open-close-btn">
+                    <i class="down material-icons">add</i>
+                    <i class="up material-icons">remove</i>
+                </span>
+              </mat-expansion-panel-header>
+              <ul>
+                <li *ngFor="let item of footerPageData?.header?.menu">
+                  <p (click)="goToPage(item?.module_url, item?.module_name,'cms')">{{item?.module_display_name}}</p>
+                </li>
+                
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <h5>Gallery</h5>
+          
+          <div class="gallery-img">
+            <ul *ngFor="let galleryItem of viewData?.gallery; let i = index">
+              <div *ngIf="i < 1">
+                <li *ngFor="let imageItem of galleryItem?.imagelist; let j = index">
+                  <img (click)="goToPage('gallery', '','')" *ngIf="j < 4" src="{{file_url}}/{{ galleryItem?.path }}{{ imageItem }}">
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <h5>CONTACT US</h5>
+          <ul class="contactus-icons">
+              <li>
+                <i class="fa fa-map-marker"></i> 
+                <strong>Address:</strong>
+                  <span>
+                    {{footerPageData?.contact_us?.address}}
+                  </span>
+              </li>
+              <li>
+                <i class="fa fa-phone-square"></i>
+
+                <a href="tel:{{footerPageData?.contact_us?.phone}}">{{footerPageData?.contact_us?.phone}}</a>
+                <!-- <i>&nbsp; / &nbsp;</i>
+                <a href="tel:9100932495">9100932495</a> -->
+              </li>
+              <li>
+                <i class="fa fa-envelope"></i> 
+                <strong>Email:</strong> 
+                <a href="mailto:{{footerPageData?.contact_us?.email}}">  {{footerPageData?.contact_us?.email}}</a>
+                <!-- <i>&nbsp; / &nbsp;</i>
+                <a href="mailto:info@bongtechsolutions.com">info@bongtechsolutions.com</a> -->
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <p>© 2020 Restaurent All Rights Reserved </p>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <ul class="header-social "  >
+            <!-- <li *ngFor="let item of footerPageData?.sitedetails?.social">
+              <a href="{{item?.link}}" target="_blank">
+                <i class="fa fa-{{item?.icon}}" aria-hidden="true"></i>
+              </a>
+            </li> -->
+            <li>
+              <span class="power_by_text" style="padding-right: 5px;">Powered By:</span>
+              <a class="powerby" href="#" target="_blank">
+                Demo Company
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-footer>

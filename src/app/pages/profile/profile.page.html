@@ -1,0 +1,271 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScrollHedearFix($event)">
+  <!-- common header show -->
+  <common-header [ngClass]="{'fix-header':isFixedHeader}"></common-header>
+
+  <!-- Profile-header start -->
+  <section id="profile-header">
+    <div class="profile-header">
+      <img class="image-bg" src="assets/images/profile-header-bg.jpg">
+      <div class="banner-caption-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 slider-text animated fadeInUp">
+              <div class="slider-text-inner">
+                  <div class="desc">
+                      <span class="icon">
+                        <img src="{{file_url}}/{{ viewData?.userinfo?.path }}{{ viewData?.userinfo?.image }}">
+                      </span>
+                      <h1>{{viewData?.userinfo?.name}}</h1>
+                      <p>{{viewData?.userinfo?.phone_no}}</p>
+                      <p>
+                        <a href="javascript:void(0);" (click)="addressEditAdd('edit_profile', '', '');" class="btn btn-primary btn-lg btn-learn">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          Edit profile
+                        </a>
+                      </p>
+                      <div class="desc2"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Profile-header end -->
+
+  <!-- profile-details start -->
+  <section id="profile-details">
+    <div class="profile-details section-wrapper">
+      <div class="container">
+        <mat-tab-group mat-align-tabs="center">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">local_dining</mat-icon>
+              Order History
+            </ng-template>
+            <div class="order-item"  *ngFor="let orderItem of viewData?.userinfo?.orderinfo" >
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-4" *ngFor="let menuItem of orderItem?.menulist">
+                    <div class="single_food_item">
+                      <img src="{{file_url}}/{{ menuItem?.path }}{{ menuItem?.image }}" class="mr-3" alt="...">
+                      <div class="media-body">
+                          <h3>{{ menuItem?.submenu_name }}</h3>
+                          <label>{{ menuItem?.description }}</label>
+                          <p>Quantity: <span>{{ menuItem?.quantity }}</span></p>
+                          
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4" *ngIf="orderItem?.booking_date">
+                    <div class="single_food_item">
+                      <img src="assets/images/book-table.png" class="mr-3" alt="book-table">
+                      <div class="media-body">
+                          <h3>Booked a table</h3>
+                          <p *ngIf="orderItem?.booking_date">Booking Date: <span>{{orderItem?.booking_date}}</span></p>
+                          <p *ngIf="orderItem?.booking_time">Booking Time: <span>{{orderItem?.booking_time}}</span></p>
+                          <p *ngIf="orderItem?.no_of_people">Number of people: <span>{{orderItem?.no_of_people}}</span></p>
+                          
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row order-inner-details">
+                  <div class="col-lg-3">
+                    <div class="contact-person-details">
+                      <p *ngIf="orderItem?.name">{{orderItem?.name}}</p>
+                      <p *ngIf="!orderItem?.name">{{viewData?.userinfo?.name}}</p>
+                      <p *ngIf="orderItem?.phone_no">{{orderItem?.phone_no}}</p>
+                      <p *ngIf="!orderItem?.phone_no">{{viewData?.userinfo?.phone_no}}</p>
+                      <p *ngIf="orderItem?.email">{{orderItem?.email}}</p>
+                      <p *ngIf="!orderItem?.email">{{viewData?.userinfo?.email}}</p>
+                      <p *ngIf="orderItem?.address">{{orderItem?.address}}</p>
+                      <!-- <p *ngFor="let addressItem of orderItem?.address">
+                        <span *ngIf="addressItem?.flat_no">{{addressItem?.flat_no}}</span>
+                        <i *ngIf="addressItem?.address_details">, &nbsp;</i>
+                        <span *ngIf="addressItem?.address_details">{{addressItem?.address_details}}</span>
+                        <i *ngIf="addressItem?.city_dist_town">, &nbsp;</i>
+                        <span *ngIf="addressItem?.city_dist_town">{{addressItem?.city_dist_town}}</span>
+                        <i *ngIf="addressItem?.pin_code">&nbsp; - &nbsp;</i>
+                        <span *ngIf="addressItem?.pin_code">{{addressItem?.pin_code}}</span>
+                        <i *ngIf="addressItem?.state">, &nbsp;</i>
+                        <span *ngIf="addressItem?.state">{{addressItem?.state}}</span>.
+                      </p> -->
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="order-details">
+                      <div *ngIf="orderItem?.order_code">
+                        <p>Order id:</p>
+                        <p>{{orderItem?.order_code}}</p>
+                      </div>
+                      <div *ngIf="orderItem?.order_date">
+                        <p>Order Date:</p>
+                        <p>{{orderItem?.order_date}}</p>
+                      </div>
+                      <div *ngIf="orderItem?.booking_date">
+                        <p>Booking Date:</p>
+                        <p>{{orderItem?.booking_date}}</p>
+                      </div>
+                      <div *ngIf="orderItem?.status">
+                        <p>Order Status:</p>
+                        <p>{{orderItem?.status}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="order-details">
+                      <!-- <div>
+                        <p>Item Total:</p>
+                        <p>₹ 714</p>
+                      </div>
+                      <div>
+                        <p>Order Packing Charges:</p>
+                        <p>₹ 70</p>
+                      </div>
+                      <div>
+                        <p>Delivery partner fee:</p>
+                        <p>₹ 20</p>
+                      </div> -->
+                      <div class="total-amount" *ngIf="orderItem?.price">
+                        <p>BILL TOTAL:</p>
+                        <p>₹ {{orderItem?.price}}</p>
+                      </div>
+                      <div *ngIf="orderItem?.payment_type">
+                        <p *ngIf="orderItem?.payment_type == 'pay_by_online'">Payment via online</p>
+                        <p *ngIf="orderItem?.payment_type == 'pay_on_cash'">Payment via cash</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <!-- order -->
+                    <div class="rating-part" *ngIf="orderItem?.order_date">
+                      <div class="rating-show " *ngIf="orderItem?.status == 'Delivered'">
+                        <!-- rating component call here -->
+                        <!-- item.intRating always need to number type not string -->
+                        <app-rating [rating]='orderItem?.rating | round' [itemId]='orderItem?.uniqcode' (ratingClick)="ratingComponentClick($event, 'api/order_rating')"></app-rating>
+                      </div>
+                      <div class="custom-btn ion-text-center">
+                        <!-- Cancel -->
+                        <ion-button tooltip="Cancel order" flow="up" *ngIf="orderItem?.status == 'Wait' " color="danger" expand="block"  size="default" type="button" (click)="onClickDeleteItem('api/order_cancel', orderItem?.uniqcode, 'cancel')">
+                          <span class="material-icons">cancel</span>
+                          <span class="submitText">Cancel order</span>
+                        </ion-button>
+                        <!-- Review Button -->
+                        <ion-button *ngIf="orderItem?.status == 'Delivered'" [ngClass]="{'button-block':orderItem?.status == 'Confirm'}" tooltip="Review" flow="up" (click)="addressEditAdd('review', orderItem, 'api/order_review');">
+                          
+                          <span class="material-icons">rate_review</span>
+                          <span class="submitText">Review</span>
+                        </ion-button>
+                        <!-- Invoice -->
+                        <ion-button *ngIf="orderItem?.status == 'Delivered'" tooltip="Download Invoice" flow="up" color="success" type="button" (click)="onDownloadInvoice(orderItem?.uniqcode, 'api/order_invoice')">
+                          <span class="material-icons">receipt</span>
+                          <span class="submitText">Invoice</span>
+                        </ion-button>
+                      </div>
+                    </div>
+                    <!-- Booking -->
+                    <div class="rating-part" *ngIf="!orderItem?.order_date">
+                      <div class="rating-show " *ngIf="orderItem?.status == 'Complete'">
+                        <!-- rating component call here -->
+                        <!-- item.intRating always need to number type not string -->
+                        <app-rating [rating]='orderItem?.rating | round' [itemId]='orderItem?.uniqcode' (ratingClick)="ratingComponentClick($event, 'api/booking_rating')"></app-rating>
+                      </div>
+                      <div class="custom-btn ion-text-center">
+                        <!-- Cancel -->
+                        <ion-button tooltip="Cancel Booking" flow="up" *ngIf="orderItem?.status == 'Booked' " color="danger" expand="block" size="default" type="button" (click)="onClickDeleteItem('api/booking_cancel', orderItem?.uniqcode, 'cancel')">
+                          <span class="material-icons">cancel</span>
+                          <span class="submitText">Cancel Booking</span>
+                        </ion-button>
+                        <!-- Review Button -->
+                        <ion-button *ngIf="orderItem?.status == 'Complete'" [ngClass]="{'button-block':orderItem?.status == 'Complete'}" tooltip="Review" flow="up" (click)="addressEditAdd('review', orderItem, 'api/booking_review');">
+                          
+                          <span class="material-icons">rate_review</span>
+                          <span class="submitText">Review</span>
+                        </ion-button>
+                        <!-- Invoice -->
+                        <ion-button *ngIf="orderItem?.status == 'Complete'" tooltip="Download Invoice" flow="up" color="success" expand="block" size="default" type="button" (click)="onDownloadInvoice(orderItem?.uniqcode, 'api/booking_invoice')">
+                          <span class="material-icons">receipt</span>
+                          <span class="submitText">Invoice</span> 
+                        </ion-button>
+                        <!-- Add menu -->
+                        <ion-button tooltip="Add Menu" flow="up" *ngIf="orderItem?.status == 'Booked' && !orderItem?.menulist" color="tertiary" expand="block" size="default" type="button" [routerLink]="['/', 'checkout', orderItem?.ref_code]">
+                          <span class="material-icons">fastfood</span>
+                          <span class="submitText">Add Menu</span>
+                        </ion-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container" *ngIf="viewData?.userinfo?.orderinfo.length == 0">
+              <div class="row">
+                <div class="no-order-table">
+                  <img src="assets/images/serving-dish.png">
+                  <p>No order yet</p>
+                </div>
+              </div>
+            </div>
+
+          </mat-tab>
+        
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">import_contacts</mat-icon>
+              My addresses
+            </ng-template>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-4" *ngFor="let addressItem of viewData?.userinfo?.address">
+                  <div class="delivery-address-item">
+                    <ion-item class="address-item">
+                      <mat-icon *ngIf="addressItem?.address_type == 'Other'">home</mat-icon>
+                      <mat-icon *ngIf="addressItem?.address_type == 'Home'">home_work</mat-icon>
+                      <ion-label>
+                        <h2>{{addressItem?.address_type}}</h2>
+                        <p style="height: 80px;">
+                          <span *ngIf="addressItem?.flat_no">{{addressItem?.flat_no}}</span>
+                          <i *ngIf="addressItem?.address_details">, &nbsp;</i>
+                          <span *ngIf="addressItem?.address_details">{{addressItem?.address_details}}</span>
+                          <i *ngIf="addressItem?.city_dist_town">, &nbsp;</i>
+                          <span *ngIf="addressItem?.city_dist_town">{{addressItem?.city_dist_town}}</span>
+                          <i *ngIf="addressItem?.pin_code">&nbsp; - &nbsp;</i>
+                          <span *ngIf="addressItem?.pin_code">{{addressItem?.pin_code}}</span>
+                          <i *ngIf="addressItem?.state">, &nbsp;</i>
+                          <span *ngIf="addressItem?.state">{{addressItem?.state}}</span>.
+                        </p>
+                      </ion-label>
+                    </ion-item>
+                    <div class="custom-btn">
+                      <ion-button color="danger" (click)="onClickDeleteItem('api/delete_address', addressItem?.uniqcode, 'delete')" size="default" type="button">
+                        <span class="submitText">Delete</span>
+                      </ion-button>
+
+                      <ion-button color="tertiary"  (click)="addressEditAdd('address_add', addressItem?.uniqcode, 'edit');" class="start" size="default" type="button">
+                        <span class="submitText">Edit</span>
+                      </ion-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <ion-button (click)="addressEditAdd('address_add', '', 'add');" color="success" class="start" size="default" type="button">
+                    <mat-icon>add_location_alt</mat-icon>
+                    <span class="submitText">Add New Address</span>
+                  </ion-button>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </section>
+  <!-- profile-details end -->
+  <!-- common footer show -->
+  <common-footer></common-footer>
+
+</ion-content>

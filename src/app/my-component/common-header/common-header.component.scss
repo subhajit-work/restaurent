@@ -1,0 +1,118 @@
+// ------------------- Dropdown Menu Starts ------------
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #f0f0f8;
+    line-height: 20px;
+  }
+  
+  .dropdown2 {
+    padding: 4px 6px;
+  }
+  .dropbtn {
+    background: #ffffff;
+  }
+  .username {
+    font-size: 13px;
+    color: #555555;
+    display: inline-block;
+    height: 29px;
+    line-height: 29px;
+    padding: 0 10px;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100%;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 999999;
+  }
+  // .dropdown:hover .dropdown-content span {
+  //     display: block;
+  //   }
+  .width-33 {
+    width: 33%;
+  }
+  // .pull-left {
+  //     float: left;
+  // }
+  .width-100 {
+    width: 100%; 
+  }
+  .dropdown-menu.logout .ran-icon {
+    font-size: 20px;
+  }
+  
+  .ran-icon1 {
+    font-size: 25px;
+  }
+  .logout-dropdown button {
+    background: transparent;
+    border-radius: 3px;
+    // border: 1px solid #f0f0f8;
+    padding: 4px 6px; 
+    outline: none;
+  }
+  .img-scale {
+    height: 25px;
+    width: 25px;
+    margin-right: 2px;
+    vertical-align: top;
+    margin-top: 6px;
+    border-radius: 50%;
+  }
+  .username {
+    font-size: 14px;
+    // font-family: 'futurastd-book';
+    color: var(--ion-color-white);
+    font-family: 'opensans-bold';
+    font-weight: bold;
+  }
+  .logout-dropdown button span {
+    height: 33px;
+    line-height: 33px;
+  }
+  .logout-dropdown button mat-icon.material-icons {
+    font-size: 16px;
+    color: #fff;
+  }
+  .dropdown-menu.logout .dropdown-item-inner {
+    color: #a4abbb;
+  }
+  .dropdown-menu.extended .dropdown-menu-item .dropdown-item-inner {
+    // border-bottom: 1px solid #ebebeb !important;
+    font-size: 12px;
+    display: inline-block;
+    padding: 10px 5px !important;
+  }
+  .dropdown-menu-content .dropdown-menu-lastitem .dropdown-item-inner {
+    background: var(--ion-color-orange);
+    color: #fff;
+    text-transform: uppercase;
+    border-width: 0px!important;
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px 10px !important;
+    width: 100%;
+    font-family: 'opensans-semibold';
+  }
+  .pointer {
+    cursor: pointer;
+    font-family: 'opensans';
+    font-size: 11px;
+  }
+  .mat-menu-content:not(:empty) {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  .rotate_90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  // ------------------- Dropdown Menu Ends --------------
